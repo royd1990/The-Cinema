@@ -7,14 +7,16 @@ package Presentation;
  *
  */
 public class Session extends Thread{
-	ProjectionHall p;
+	private ProjectionHall p;
+	private TicketStation t;
 	/**
 	 * This is a constructor for the object, which is initialized by the projection
 	 * hall attached with the session.
 	 * @param p2 This represents the projection hall on which the movie session will be displayed.
 	 */
-	public Session(ProjectionHall p2){
+	public Session(ProjectionHall p2, TicketStation t){
 		this.p = p2;
+		this.t = t;
 	}
 /**
  * This is the run method of the session thread. A session thread
@@ -27,7 +29,7 @@ public class Session extends Thread{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		DeepThought ai = new DeepThought(p);
+		DeepThought ai = new DeepThought(p,t);
 		ai.start();
 		p.sessionStart();
 		p.sessionEnd();

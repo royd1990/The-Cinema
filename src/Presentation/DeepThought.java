@@ -8,14 +8,16 @@ package Presentation;
  */
 
 public class DeepThought extends Thread{
-	ProjectionHall p;
+	private ProjectionHall p;
+	private TicketStation t;
 /**
  * Constructor to initialized the AI with the projection hall
  * on which it is supposed to project a movie.
  * @param p2	Projection hall reference
  */
-	public DeepThought(ProjectionHall p2){
+	public DeepThought(ProjectionHall p2, TicketStation t){
 		this.p = p2;
+		this.t = t;
 	}
 
 /**
@@ -40,6 +42,8 @@ public class DeepThought extends Thread{
 			}
 		p.endCinema();
 		System.out.println("Deep Thought has finished the projection");
+		t.endMovie();
+		System.out.println("Deep Thought has notified the ticketstation to stop giving tickets");
 	}
 
 }

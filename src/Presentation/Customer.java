@@ -28,6 +28,7 @@ public class Customer extends Thread{
 	 */
 	
 	public void run(){
+		System.out.println("Customer "+this.getId()+" arrived in front of the cinema");
 		boolean x = t[0].decrementTickts();	//Get tickets from ticket counter
 /**
  * If customer gets tickets he enters the hall else he goes back.
@@ -37,7 +38,7 @@ public class Customer extends Thread{
 			p[0].exitHall();				//Exit the projection hall
 		}
 		else{
-			System.out.println("Customer "+this.getId()+" has left as there were no more tickets");
+			System.out.println("Customer "+this.getId()+" has left as there were no more tickets or cinema is closed for the day.");
 		}
 	}
 

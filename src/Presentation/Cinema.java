@@ -20,7 +20,7 @@ public class Cinema {
 	}
 	
 /**
- * This synchornized method provides access
+ * This synchronized method provides access
  * to the variable nbTickets to all of the customer
  * threads and returns a boolean variable to indicate whether
  * the customer has got a ticket or not.
@@ -29,6 +29,7 @@ public class Cinema {
 	
 	public synchronized boolean takeTickets(){
 		if(nbTickets!=0){
+			System.out.println("Customer "+Thread.currentThread().getId()+" enters the ticket station");
 			nbTickets--;
 			return true;
 		}
@@ -37,5 +38,6 @@ public class Cinema {
 			return false;
 		}
 	}
+	
 
 }
