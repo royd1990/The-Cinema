@@ -1,12 +1,28 @@
 package Presentation;
 
+/**
+ * This class represents the deepthough AI which is responsible for projecting movies in 
+ * the projection halls. This is thread that gets started from inside a session thread.
+ * @author Debaditya Ravish
+ *
+ */
 
 public class DeepThought extends Thread{
 	ProjectionHall p;
+/**
+ * Constructor to initialized the AI with the projection hall
+ * on which it is supposed to project a movie.
+ * @param p2	Projection hall reference
+ */
 	public DeepThought(ProjectionHall p2){
 		this.p = p2;
 	}
-	
+
+/**
+ * This is the run method which defines two operations for the AI thread:
+ * start cinema, end cinema. To define the projection time we have a call to the
+ * Sleep method.
+ */
 	public void run(){
 		try {
 			sleep(10);
