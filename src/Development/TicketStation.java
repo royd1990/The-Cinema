@@ -1,14 +1,21 @@
 package Development;
 
 public class TicketStation {
-	Cinema c;
-	public TicketStation(Cinema c){
+	private Cinema c;
+	private volatile boolean cinemaClosed;
+	public TicketStation(Cinema c,boolean cinemaClosed){
 		this.c = c;
+		this.cinemaClosed = cinemaClosed;
 	}
 	public synchronized void decrementTickts(){
-		// TODO Auto-generated method stub
-		c.takeTickets();
-		
+		if(cinemaClosed==false){
+			c.takeTickets();
+		}
+	}
+	
+	public void closeCinema(){
+		cinemaClosed = true;
+		System.out.println("CINEMA HALL IS CLOSED FOR TODAY");
 	}
 	
 }

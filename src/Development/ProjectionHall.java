@@ -2,12 +2,14 @@ package Development;
 
 public class ProjectionHall {
 	private int nbPlaces;
+	private int totalSeats;
 	private boolean sessionStarted,sessionEnded,cinemaEnded;
 	
 	public ProjectionHall(int nbPlaces,boolean sessionStarted, boolean sessionEnded, boolean cinemaEnded){
 		this.nbPlaces = nbPlaces;
 		this.sessionStarted = sessionStarted;
 		this.sessionEnded	= sessionEnded;
+		this.totalSeats = nbPlaces;
 		
 	}
 	
@@ -66,7 +68,6 @@ public class ProjectionHall {
 	}
 	
 	public synchronized void exitHall(){
-		
 		if(sessionEnded==false){
 			try {
 				System.out.println("The customer "+Thread.currentThread().getId()+" is waiting for the movie to finish.");
@@ -76,9 +77,11 @@ public class ProjectionHall {
 			}
 		}
 		nbPlaces++;
-		cinemaEnded=false;//Exit
-		sessionEnded=false;
 		System.out.println("The customer "+Thread.currentThread().getId()+" will exit the projection hall.");
+		if(nbPlaces==totalSeats){
+			cinemaEnded=false;//Exit
+			sessionEnded=false;
+		}
 		
 		
 

@@ -17,21 +17,16 @@ public class CinemaManager {
 	 */
 	public static void main(String[] args) {
 
-/**
- * For this version although we have one ticket desk, one projection hall and one session, but for scaling up
- * of the future versions we have declared those variables as an array and used single instances of them in this 
- * version.
- */
 		Cinema c = new Cinema(90);								
-		ProjectionHall[] p = new ProjectionHall[1];	
-		TicketStation[] t=new TicketStation[1];	
-		Session[] s=new Session[1];
+		ProjectionHall p ;	
+		TicketStation t;	
+		Session s;
 		Customer[] cust=new Customer[90];
 		
-		p[0] = new ProjectionHall(90, false, false, false);	
-		t[0]=new TicketStation(c);		
-		s[0]=new Session(p[0],t[0]);
-		s[0].start();
+		p = new ProjectionHall(90, false, false, false);	
+		t=new TicketStation(c);		
+		s=new Session(p,t);
+		s.start();
 		
 		for(int i=0;i<90;i++){
 			cust[i] = new Customer(p,t);
