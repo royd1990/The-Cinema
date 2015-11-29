@@ -1,16 +1,32 @@
 package Development;
 
-
+/**
+ * This class represents a session thread responsible for starting and ending 
+ * a movie session.
+ * @author Debaditya Ravish
+ *
+ */
 public class Session extends Thread{
 	private ProjectionHall p;
 	private int i;
 	private final int noOfSessions=3;
 	private TicketStation t;
-	public Session(ProjectionHall p2, TicketStation t){
+	private Cinema c;
+	/**
+	 * This class is the constructor for the Session object
+	 * @param p2	Represents a projection hall
+	 * @param t		Represents a ticket station
+ 	 */
+	public Session(ProjectionHall p2, TicketStation t, Cinema c){
 		this.p = p2;
 		this.t = t;
+		this.c = c;
 	}
 
+	/**
+	 * This is the run method for the session thread.
+	 * Consists of three actions:Start a DeepThought thread, Start the session, end the session.
+	 */
 	public void run(){
 		for(i=0;i<noOfSessions;i++){
 			try {
@@ -18,7 +34,7 @@ public class Session extends Thread{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			DeepThought ai = new DeepThought(p,(i+1),noOfSessions,t);
+			DeepThought ai = new DeepThought(p,(i+1),noOfSessions,t,c);
 			ai.start();
 			p.sessionStart();
 			p.sessionEnd();

@@ -1,39 +1,34 @@
 package Development;
 
-import java.util.concurrent.Semaphore;
 
+/**
+ * This is the popcorn machine thread which is responsible for
+ * making popcorns for the clients.
+ * @author Debaditya Ravish
+ *
+ */
 public class PopcornMachine extends Thread{
 	private Cinema c;
-	private boolean makePopcorn;
-	private Semaphore popcorn_mutex  = new Semaphore(1, true);
+	/**
+	 * This is the constructor class for the PopcornMachine class.
+	 * @param c This parameter represents the cinema object.
+	 */
 	public PopcornMachine(Cinema c){
 		this.c = c;
-		this.makePopcorn = false;
 	}
+	/**
+	 * This is the run method for the popcornMachine thread class
+	 */
 	public void run(){
 		while(true){
 			try {
-				sleep(20);
+				sleep(600);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if(makePopcorn){
 				c.makePopcorn();
-				makePopcorn = false;
-				popcorn_mutex.release();
-			}
-			
 			
 		}
-	}
-	
-	public void makePopcorn(){		
-		try {
-			popcorn_mutex.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		makePopcorn = true;
 	}
 
 }

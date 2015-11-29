@@ -15,6 +15,7 @@ public class Cinema {
 	private int nbTickets;
 	private boolean popcornPrepared;
 	private Semaphore popcorn_mutex = new Semaphore(1, true);	//Mutex semaphore
+	private volatile boolean cinemaClosed;
 	/**
 	 * This is a constructor for the cinema class
 	 * @param nbTickets represents the total number of tickets
@@ -23,23 +24,32 @@ public class Cinema {
 	public Cinema(int nbTickets,boolean popcornPrepared){
 		this.nbTickets = nbTickets;
 		this.popcornPrepared = popcornPrepared;
+		this.cinemaClosed = false;
 	}
 	/**
 	 * This method provides shared access of the tickets to the 
 	 * customers via the ticket station.
 	 */
-	public synchronized void takeTickets(){
-		while(nbTickets==0){				//This is a while because once woken up every time the customer must check
-											//whether tickets are available.
+	public synchronized boolean takeTickets(){
+	
+		while(nbTickets==0){
 			try {
-				System.out.println("Customer "+Thread.currentThread().getId()+ " is waiting for tickets");
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Customer "+Thread.currentThread().getId()+ " bought tickets");
-		nbTickets--;
+		if(cinemaClosed==false){
+			nbTickets--;
+			System.out.println("Customer "+Thread.currentThread().getId()+" got ticket");
+			return true;
+		}
+		else{
+			return false;
+		}
+		
+		
+
 	}
 	/**
 	 * This method is used to notify the customers who are waiting at
@@ -85,7 +95,9 @@ public class Cinema {
 	}
 	
 
-	
+	public void closeCinema(){
+		cinemaClosed = true;
+	}
 	
 	
 	

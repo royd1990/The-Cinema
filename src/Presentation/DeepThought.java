@@ -21,8 +21,8 @@ public class DeepThought extends Thread{
 	}
 
 /**
- * This is the run method which defines two operations for the AI thread:
- * start cinema, end cinema. To define the projection time we have a call to the
+ * This is the run method which defines three operations for the AI thread:
+ * start cinema, end cinema and notify ticket station. To define the projection time we have a call to the
  * Sleep method.
  */
 	public void run(){
