@@ -30,11 +30,11 @@ public class Session extends Thread{
 	 */
 	public void run(){
 		for(i=0;i<noOfSessions;i++){
-		//	try {
-		//		sleep(1000);
-		//	} catch (InterruptedException e) {
-		//		e.printStackTrace();
-	//		}
+			try {
+				sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			int j=i+1;
 			DeepThought ai = new DeepThought(p,j,noOfSessions,t,c);
 			ai.start();

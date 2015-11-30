@@ -1,5 +1,8 @@
 package Development;
 
+import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
+
 /**
  * This class represents a waiter, to whom customers requests popcorn.
  * @author Debaditya Ravish
@@ -7,7 +10,7 @@ package Development;
  */
 public class Waiter{
 	private Cinema c;
-
+	private Semaphore popcorn_mutex = new Semaphore(1, true);	//Mutex semaphore
 
 	/**
 	 * This is the constructor for the waiter object
@@ -21,6 +24,13 @@ public class Waiter{
 	 * waits for the popcorn.
 	 */
 	public void getPopcorn(){
+		//cust.add(a);
+		try {
+			popcorn_mutex.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		c.takePopcorn();
+		popcorn_mutex.release();
 	}
 }

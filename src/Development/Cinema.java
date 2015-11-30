@@ -18,6 +18,7 @@ public class Cinema {
 	private Semaphore popcorn_mutex = new Semaphore(1, true);	//Mutex semaphore
 	private volatile boolean cinemaClosed;
 	private ArrayList<Customer> cust = new ArrayList<Customer>();
+	//private Customer[] cust;
 	/**
 	 * This is a constructor for the cinema class
 	 * @param nbTickets represents the total number of tickets
@@ -66,16 +67,14 @@ public class Cinema {
 	 * This method is accessed by each customer via a waiter class.
 	 */
 	public synchronized void takePopcorn(){
-		//try {
-	//		popcorn_mutex.acquire();		//To impose order on the fact that customer who first reaches
+	//	try {
+		//	popcorn_mutex.acquire();		//To impose order on the fact that customer who first reaches
 											//for popcorn takes it before another one we have used a mutex lock.Only one customer
 											//thread is allowed to to go to sleep at a time so that he is the only one woken up and
 											//strict ordering is imposed.
 	//	} catch (InterruptedException e1) {
 	//		e1.printStackTrace();
 	//	}
-		Customer a = (Customer) Thread.currentThread();
-		cust.add(a);
 		//System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa           "+a.getClass());
 		
 		System.out.println("Customer "+Thread.currentThread().getId()+" came for popcorn");
@@ -99,8 +98,10 @@ public class Cinema {
 	public void makePopcorn(){
 		popcornPrepared=true;
 		synchronized (this) {
+			
 			notifyAll();					//Notifies all the customers who are waiting for popcorn.
 		}
+		
 
 	}
 	
