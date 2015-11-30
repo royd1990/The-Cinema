@@ -18,16 +18,16 @@ public class CinemaManager {
 		p = new ProjectionHall(250, false, false, false);
 		TicketStation t;
 		t=new TicketStation(c,false);
-		Customer[] cust=new Customer[600];
+		Customer[] cust=new Customer[1000];
 		Session s;
-		s=new Session(p,t,c);
+		s=new Session(p,t,c,4);
 		s.start();
 		PopcornMachine pop = new PopcornMachine(c);
 		Waiter w = new Waiter(c);
 		pop.setDaemon(true);
 		pop.start();
 		
-		for(int i=0;i<600;i++){
+		for(int i=0;i<1000;i++){
 			cust[i] = new Customer(p,t,c,w);
 			cust[i].start();
 		}

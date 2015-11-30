@@ -22,7 +22,8 @@ public class ProjectionHall {
 		this.nbPlaces = nbPlaces;
 		this.sessionStarted = sessionStarted;
 		this.sessionEnded	= sessionEnded;
-		this.totalSeats = nbPlaces;			
+		this.totalSeats = nbPlaces;
+		allExited = false;
 		
 	}
 	
@@ -41,7 +42,7 @@ public class ProjectionHall {
 			}
 			sessionStarted = true;
 			sessionEnded = false;
-						
+			allExited=false;			
 		}
 		else{
 			sessionStarted=true;
@@ -56,7 +57,7 @@ public class ProjectionHall {
 	 * This method is called by the session thread to indicate the ned of a session. Once the session has ended it notifies
 	 * all the customer threads to leave the projection room.
 	 */
-	public synchronized void sessionEnd(){
+	public synchronized void sessionEnd(int i){
 		while(cinemaEnded==false){
 			try {
 				System.out.println("Session is yet to be ended by "+Thread.currentThread().getName());
@@ -67,7 +68,8 @@ public class ProjectionHall {
 		}
 		sessionStarted = false;
 		sessionEnded = true;
-		System.out.println("Session has been ended by "+Thread.currentThread().getName());
+		int j = i+1;
+		System.out.println("Session "+j+" has been ended by "+Thread.currentThread().getName());
 		notifyAll();	//This is a notifyAll because we must notify all the customer threads about the session end
 						//and permit them to leave the projection room.
 	}

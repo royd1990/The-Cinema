@@ -9,7 +9,7 @@ package Development;
 public class Session extends Thread{
 	private ProjectionHall p;
 	private int i;
-	private final int noOfSessions=2;
+	private  int noOfSessions;
 	private TicketStation t;
 	private Cinema c;
 	/**
@@ -17,10 +17,11 @@ public class Session extends Thread{
 	 * @param p2	Represents a projection hall
 	 * @param t		Represents a ticket station
  	 */
-	public Session(ProjectionHall p2, TicketStation t, Cinema c){
+	public Session(ProjectionHall p2, TicketStation t, Cinema c, int nbSessions){
 		this.p = p2;
 		this.t = t;
 		this.c = c;
+		this.noOfSessions = nbSessions;
 	}
 
 	/**
@@ -38,7 +39,7 @@ public class Session extends Thread{
 			DeepThought ai = new DeepThought(p,j,noOfSessions,t,c);
 			ai.start();
 			p.sessionStart(i);
-			p.sessionEnd();
+			p.sessionEnd(i);
 		}
 	}
 }
