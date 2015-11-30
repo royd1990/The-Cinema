@@ -9,7 +9,7 @@ package Development;
 public class Session extends Thread{
 	private ProjectionHall p;
 	private int i;
-	private final int noOfSessions=3;
+	private final int noOfSessions=2;
 	private TicketStation t;
 	private Cinema c;
 	/**
@@ -29,14 +29,15 @@ public class Session extends Thread{
 	 */
 	public void run(){
 		for(i=0;i<noOfSessions;i++){
-			try {
-				sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			DeepThought ai = new DeepThought(p,(i+1),noOfSessions,t,c);
+		//	try {
+		//		sleep(1000);
+		//	} catch (InterruptedException e) {
+		//		e.printStackTrace();
+	//		}
+			int j=i+1;
+			DeepThought ai = new DeepThought(p,j,noOfSessions,t,c);
 			ai.start();
-			p.sessionStart();
+			p.sessionStart(i);
 			p.sessionEnd();
 		}
 	}

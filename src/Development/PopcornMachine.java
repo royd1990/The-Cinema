@@ -22,7 +22,7 @@ public class PopcornMachine extends Thread{
 	public void run(){
 		while(true){
 			try {
-				sleep(600);
+				sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

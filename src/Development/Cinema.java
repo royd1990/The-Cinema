@@ -1,5 +1,6 @@
 package Development;
 
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 /**
  This is the cinema class which acts as
@@ -13,9 +14,10 @@ import java.util.concurrent.Semaphore;
 
 public class Cinema {
 	private int nbTickets;
-	private boolean popcornPrepared;
+	private volatile boolean popcornPrepared;
 	private Semaphore popcorn_mutex = new Semaphore(1, true);	//Mutex semaphore
 	private volatile boolean cinemaClosed;
+	private ArrayList<Customer> cust = new ArrayList<Customer>();
 	/**
 	 * This is a constructor for the cinema class
 	 * @param nbTickets represents the total number of tickets
@@ -31,7 +33,7 @@ public class Cinema {
 	 * customers via the ticket station.
 	 */
 	public synchronized boolean takeTickets(){
-	
+		System.out.println("*********Customer "+Thread.currentThread().getId()+" arrived in front of cinema********");
 		while(nbTickets==0){
 			try {
 				wait();
@@ -64,15 +66,20 @@ public class Cinema {
 	 * This method is accessed by each customer via a waiter class.
 	 */
 	public synchronized void takePopcorn(){
-		try {
-			popcorn_mutex.acquire();		//To impose order on the fact that customer who first reaches
+		//try {
+	//		popcorn_mutex.acquire();		//To impose order on the fact that customer who first reaches
 											//for popcorn takes it before another one we have used a mutex lock.Only one customer
 											//thread is allowed to to go to sleep at a time so that he is the only one woken up and
 											//strict ordering is imposed.
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+	//	} catch (InterruptedException e1) {
+	//		e1.printStackTrace();
+	//	}
+		Customer a = (Customer) Thread.currentThread();
+		cust.add(a);
+		//System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa           "+a.getClass());
+		
 		System.out.println("Customer "+Thread.currentThread().getId()+" came for popcorn");
+		
 		while(popcornPrepared==false){
 			try {
 				System.out.println("Customer "+Thread.currentThread().getId()+" is waiting for popcorn");
@@ -81,17 +88,20 @@ public class Cinema {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Customer "+Thread.currentThread().getId()+" bought popcorn");
-		popcorn_mutex.release();	//Once one customer has got popcorn he releases the mutex for the next customer.
+		System.out.println("Customer "+Thread.currentThread().getId()+" bought popcorn");					
 		popcornPrepared = false;
+	//	popcorn_mutex.release();	//Once one customer has got popcorn he releases the mutex for the next customer.
 	}
 	
 	/**
 	 * Thread popcornMachine accesses this method to tell the customers that popcorn is ready
 	 */
-	public synchronized void makePopcorn(){
+	public void makePopcorn(){
 		popcornPrepared=true;
-		notifyAll();	//Notifies all the customers who are waiting for popcorn.
+		synchronized (this) {
+			notifyAll();					//Notifies all the customers who are waiting for popcorn.
+		}
+
 	}
 	
 

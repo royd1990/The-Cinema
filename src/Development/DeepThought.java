@@ -39,11 +39,7 @@ public class DeepThought extends Thread{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		if(noOfSessions==sessionNumber){
-			t.closeCinema();
-			c.closeCinema();
-			
-		}
+
 		System.out.println("Deep Thought is trying to initialize its projector for session Number "+sessionNumber);
 		p.startCinema();
 			try {
@@ -54,7 +50,11 @@ public class DeepThought extends Thread{
 			}
 		p.endCinema();
 		System.out.println("Deep Thought has finished the projection for session Number "+sessionNumber);
-		
+		if(noOfSessions==sessionNumber){
+			t.closeCinema();
+			c.closeCinema();
+			
+		}
 	}
 
 }

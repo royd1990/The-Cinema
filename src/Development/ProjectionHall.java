@@ -9,7 +9,7 @@ package Development;
 public class ProjectionHall {
 	private int nbPlaces;
 	private int totalSeats;
-	private boolean sessionStarted,sessionEnded,cinemaEnded;
+	private boolean sessionStarted,sessionEnded,cinemaEnded,allExited;
 	
 	/**
 	 * This is constructor to initialize the projection hall
@@ -30,11 +30,26 @@ public class ProjectionHall {
 	 * This method is called by the session thread to announce the start of a session. Once the session has started
 	 * it notifies all the threads that are waiting on the start of the session.
 	 */
-	public synchronized void sessionStart(){
-		sessionStarted=true;
-		System.out.println("Session has been started by "+Thread.currentThread().getName());
-		notifyAll();//This is a notifyAll() because we have to notify all the customer threads(to enter projection
-					// room as well as the deepthought thread to start the movie.
+	public synchronized void sessionStart(int i){
+		if(i!=0){
+			while(allExited==false){
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			sessionStarted = true;
+			sessionEnded = false;
+						
+		}
+		else{
+			sessionStarted=true;
+			sessionEnded = false;
+		}
+		int j = i+1;
+		System.out.println("Session "+j+" has been started by "+Thread.currentThread().getName());
+		notifyAll();
 	}
 	
 	/**
@@ -80,7 +95,7 @@ public class ProjectionHall {
 	public synchronized void endCinema(){
 		cinemaEnded = true;
 		System.out.println("Cinema has been ended by "+Thread.currentThread().getName());
-		notify();		//This is a notify because we need to wake up only current session thread which waits on the variable
+		notifyAll();		//This is a notify because we need to wake up only current session thread which waits on the variable
 						// cinemaEnded.
 		
 	}
@@ -106,7 +121,7 @@ public class ProjectionHall {
 	 */
 	
 	public synchronized void exitHall(){
-		if(sessionEnded==false){			//This is a if before once the session has ended and the customers have been 
+		while(sessionEnded==false){			//This is a if before once the session has ended and the customers have been 
 											//notified there is no chance the sessionEnded variable will change again so there
 											//is no need to check.
 			try {
@@ -123,8 +138,12 @@ public class ProjectionHall {
 		 * The last customer changes the state before exiting.
 		 */
 		if(nbPlaces==totalSeats){
+			System.out.println("Last customer comes and seat number is "+nbPlaces);
+			allExited=true;
 			cinemaEnded=false;//Exit
 			sessionEnded=false;
+			notifyAll();
+			
 		}
 		
 		

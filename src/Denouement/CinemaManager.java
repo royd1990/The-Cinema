@@ -22,7 +22,7 @@ public class CinemaManager {
 		}
 		
 		
-		Customer[] cust=new Customer[40];
+		Customer[] cust=new Customer[5];
 		Session[] s=new Session[2];
 		
 		for(int i=0;i<2;i++){
@@ -43,7 +43,7 @@ public class CinemaManager {
 		pop.start();
 
 
-		for(int i=0;i<40;i++){
+		for(int i=0;i<5;i++){
 			cust[i] = new Customer(p,t,c,w);
 			cust[i].start();
 		}

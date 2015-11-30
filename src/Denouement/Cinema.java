@@ -33,6 +33,11 @@ public class Cinema {
 	}
 	
 	public synchronized void takePopcorn(){
+	//	try {
+	//		ticket_mutex.acquire();
+	//	} catch (InterruptedException e1) {
+	//		e1.printStackTrace();
+	//	}
 		System.out.println("Customer "+Thread.currentThread().getId()+" came for popcorn");
 		while(popcornPrepared==false){
 			try {
@@ -44,6 +49,7 @@ public class Cinema {
 		}
 		System.out.println("Customer "+Thread.currentThread().getId()+" bought popcorn");
 		popcornPrepared = false;
+	//	ticket_mutex.release();
 	}
 	
 	public synchronized void makePopcorn(){

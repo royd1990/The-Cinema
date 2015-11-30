@@ -23,18 +23,18 @@ public class TicketStation {
 	 * Customers access this method to buy the tickets.
 	 */
 	public  boolean decrementTickts(){
-		if(cinemaClosed==false){	//Check if cinema hall is closed for the day. If not buy tickets else go home.
-			if(c.takeTickets()){;
+		//if(cinemaClosed==false){	//Check if cinema hall is closed for the day. If not buy tickets else go home.
+			if(c.takeTickets()){
 				return true;
 			}
 			else{
 				return false;
 			}
-		}
-		else
-		{
-			return false;
-		}
+		
+	//	else
+	//	{
+	//		return false;
+	//	}
 	}
 	
 	/**
@@ -42,7 +42,7 @@ public class TicketStation {
 	 * all the sessions has ended for the day.
 	 */
 	public void closeCinema(){
-		cinemaClosed = true;
+	//	cinemaClosed = true;
 		System.out.println("CINEMA HALL IS CLOSED FOR TODAY");
 	}
 	

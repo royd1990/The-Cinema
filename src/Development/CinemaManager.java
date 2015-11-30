@@ -13,12 +13,12 @@ public class CinemaManager {
 	 */
 	public static void main(String[] args) {
 
-		Cinema c = new Cinema(5,false);
+		Cinema c = new Cinema(250,false);
 		ProjectionHall p ;
-		p = new ProjectionHall(5, false, false, false);
+		p = new ProjectionHall(250, false, false, false);
 		TicketStation t;
 		t=new TicketStation(c,false);
-		Customer[] cust=new Customer[20];
+		Customer[] cust=new Customer[600];
 		Session s;
 		s=new Session(p,t,c);
 		s.start();
@@ -27,7 +27,7 @@ public class CinemaManager {
 		pop.setDaemon(true);
 		pop.start();
 		
-		for(int i=0;i<20;i++){
+		for(int i=0;i<600;i++){
 			cust[i] = new Customer(p,t,c,w);
 			cust[i].start();
 		}

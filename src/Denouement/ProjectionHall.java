@@ -4,6 +4,7 @@ public class ProjectionHall {
 	private int nbPlaces;
 	private boolean sessionStarted,sessionEnded,cinemaEnded;
 	private int id;
+	private boolean allExited;
 	
 	public ProjectionHall(int nbPlaces,boolean sessionStarted, boolean sessionEnded, boolean cinemaEnded,int id){
 		this.nbPlaces = nbPlaces;
@@ -14,6 +15,7 @@ public class ProjectionHall {
 	}
 	
 	public synchronized void sessionStart(){
+
 		sessionStarted=true;
 		System.out.println("Session has been started by "+Thread.currentThread().getName()+" in projection hall "+id);
 		notifyAll();

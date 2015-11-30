@@ -31,7 +31,7 @@ public class Customer extends Thread{
 	 * This is the run method of the customer thread.
 	 */
 	public void run(){
-			System.out.println("Customer "+this.getId()+" arrived in front of cinema");
+			
 			boolean b = t.decrementTickts();
 			if(b){
 				if(this.getId()>10 && this.getId()<20){
