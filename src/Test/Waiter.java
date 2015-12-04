@@ -1,12 +1,10 @@
-package Denouement;
+package Test;
 
 import java.util.concurrent.Semaphore;
 
-
-
 public class Waiter{
-	private Semaphore popcorn_mutex = new Semaphore(1, true);	//Mutex semaphore
 	private Cinema c;
+	private Semaphore popcorn_mutex = new Semaphore(1, true);	//Mutex semaphore
 	public Waiter(Cinema c){
 		this.c = c;
 	}

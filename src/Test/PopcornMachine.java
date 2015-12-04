@@ -1,4 +1,4 @@
-package Denouement;
+package Test;
 
 public class PopcornMachine extends Thread{
 	private Cinema c;

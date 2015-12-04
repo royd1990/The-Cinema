@@ -1,4 +1,4 @@
-package Denouement;
+package Test;
 
 
 public class CinemaManager {
@@ -7,14 +7,15 @@ public class CinemaManager {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int nbTickets = 300;
-		int nbSeats = 150;
+		int nbTickets = 50;
+		int nbTickets2 = 50;
+		int nbSeats = 50;
 		int projHall = 2;
 		int ticketStation = 3;
-		int nbCustomers = 600;
+		int nbCustomers = 210;
 		int nbSessions = 2;
 		int nbWaiters = 3;
-		Cinema c = new Cinema(nbTickets,false,0);
+		Cinema c = new Cinema(nbTickets,nbTickets2,false,0,nbSessions);
 //	if(nbTickets<=nbSeats){
 		ProjectionHall[] p = new ProjectionHall[projHall];
 		

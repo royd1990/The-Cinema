@@ -21,26 +21,31 @@ public class Customer extends Thread{
 			
 			Random rn = new Random();
 			int j = Math.abs((rn.nextInt()%3));									
-			t[j].decrementTickts(this.getId(),j);			
-			if(this.getId()>10 && this.getId()<20){
-				 try {
-					popcorn_mutex.acquire();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-					w[j].getPopcorn(j,this.getId());
-				 popcorn_mutex.release();
-				}
+			boolean b = t[j].decrementTickts(this.getId(),j);
+			if(b){
+				if(this.getId()>10 && this.getId()<20){
+					try {
+						popcorn_mutex.acquire();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+						w[j].getPopcorn(j,this.getId());
+					popcorn_mutex.release();
+					}
 
-			if((this.getId()>10 && this.getId()<19)||(this.getId()>30 && this.getId()<39)){
-				p[0].enterHall();
-				p[0].exitHall();
+				if((this.getId()>10 && this.getId()<21)||(this.getId()>30 && this.getId()<41)){
+					p[0].enterHall();
+					p[0].exitHall();
+				}
+				else{
+					p[1].enterHall();
+					p[1].exitHall();
+				}
+				c.notifier();
 			}
 			else{
-				p[1].enterHall();
-				p[1].exitHall();
+				System.out.println("Customer "+this.getId()+" have left as the cinema is closed for the day or there are no tickets");
 			}
-			c.notifier();
 		
 	}
 

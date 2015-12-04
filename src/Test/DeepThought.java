@@ -1,4 +1,4 @@
-package Denouement;
+package Test;
 
 
 public class DeepThought extends Thread{
@@ -21,14 +21,14 @@ public class DeepThought extends Thread{
 			e1.printStackTrace();
 		}
 		System.out.println("Deep Thought is trying to initialize its projector for session number "+sessionNumber);
-		p.startCinema();
+		p.startCinema(sessionNumber);
 			try {
 				sleep(5000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		p.endCinema();
+		p.endCinema(sessionNumber);
 		System.out.println("Deep Thought has finished the projection for session number "+sessionNumber);
 		if(noOfSessions==sessionNumber){
 			c.cinemaCloseNote();

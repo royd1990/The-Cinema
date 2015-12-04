@@ -1,4 +1,4 @@
-package Denouement;
+package Test;
 
 public class ProjectionHall {
 	private int nbPlaces;
@@ -41,9 +41,10 @@ public class ProjectionHall {
 	}
 	
 	public synchronized void sessionEnd(int i){
+		int j = i+1;
 		while(cinemaEnded==false){
 			try {
-				System.out.println("Session is yet to be ended by "+Thread.currentThread().getName()+" in projection hall "+id);
+				System.out.println("Session "+j+" is yet to be ended by "+Thread.currentThread().getName()+" in projection hall "+id);
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -51,12 +52,11 @@ public class ProjectionHall {
 		}
 		sessionStarted = false;
 		sessionEnded = true;
-		int j=i+1;
 		System.out.println("Session "+j+" has been ended by "+Thread.currentThread().getName()+" in projection hall "+id);
 		notifyAll();
 	}
 	
-	public synchronized void startCinema(){
+	public synchronized void startCinema(int i){
 		while(sessionStarted==false){
 			try {
 				System.out.println("Cinema is yet to be started by "+Thread.currentThread().getName()+" in projection hall "+id);
@@ -65,13 +65,13 @@ public class ProjectionHall {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Cinema has been started by "+Thread.currentThread().getName()+" in projection hall "+id);
+		System.out.println("Cinema for session no "+i+" has been started by "+Thread.currentThread().getName()+" in projection hall "+id);
 		cinemaEnded = false;		
 	}
 	
-	public synchronized void endCinema(){
+	public synchronized void endCinema(int i){
 		cinemaEnded = true;
-		System.out.println("Cinema has been ended by "+Thread.currentThread().getName()+" in projection hall "+id);
+		System.out.println("Cinema for session no "+i+"  has been ended by "+Thread.currentThread().getName()+" in projection hall "+id);
 		notifyAll();		
 		
 	}
