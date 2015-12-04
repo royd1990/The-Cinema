@@ -7,12 +7,12 @@ public class CinemaManager {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int nbTickets = 50;
-		int nbTickets2 = 50;
-		int nbSeats = 50;
+		int nbTickets = 2000;
+		int nbTickets2 = 2000;
+		int nbSeats = 2000;
 		int projHall = 2;
 		int ticketStation = 3;
-		int nbCustomers = 210;
+		int nbCustomers = 8000;
 		int nbSessions = 2;
 		int nbWaiters = 3;
 		Cinema c = new Cinema(nbTickets,nbTickets2,false,0,nbSessions);
@@ -55,6 +55,7 @@ public class CinemaManager {
 			cust[i] = new Customer(p,t,c,w);
 			cust[i].start();
 		}
+		
 	  }
 	//else{
 	//	System.out.println("Number of tickets sold for one session cannot be greater than ");

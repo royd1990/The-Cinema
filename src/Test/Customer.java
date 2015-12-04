@@ -21,11 +21,11 @@ public class Customer extends Thread{
 			
 			Random rn = new Random();
 			int j = Math.abs((rn.nextInt()%3));
-			int i = Math.abs((rn.nextInt()%250));
-			if(i<125){
+			int i = Math.abs((rn.nextInt()%8000));
+			if(i<4){
 				boolean b = t[j].decrementTickts(this.getId(),j);
 				if(b){
-					if(i>30 && i<40){
+					if(i>0 && i<250){
 						try {
 							popcorn_mutex.acquire();
 						} catch (InterruptedException e) {

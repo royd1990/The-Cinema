@@ -103,6 +103,7 @@ public class ProjectionHall {
 		System.out.println("The customer "+Thread.currentThread().getId()+" will exit the projection hall "+id);
 		if(nbPlaces==totalSeats){
 			System.out.println("Last customer comes and seat number is "+nbPlaces);
+			System.out.println("************************"+Thread.currentThread().activeCount()+"*********************");
 			allExited=true;
 			cinemaEnded=false;//Exit
 			sessionEnded=false;
